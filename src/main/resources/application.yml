@@ -1,0 +1,23 @@
+#server.port=8089
+#spring.datasource.driver-class-name=org.sqlite.JDBC
+#spring.datasource.url=jdbc:sqlite:versionpublish.db
+#spring.jpa.database-platform=org.hibernate.dialect.SQLiteDialect
+#spring.jpa.show-sql = true
+#spring.jpa.hibernate.ddl-auto = update
+#spring.security.user.name=root
+#spring.security.user.password=root
+
+server:
+  port: 8089
+spring:
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:versionpublish.db
+  jpa:
+    database-platform: org.hibernate.dialect.SQLiteDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+config:
+  password:
+    default: 123456
