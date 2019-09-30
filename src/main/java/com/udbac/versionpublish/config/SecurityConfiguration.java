@@ -9,8 +9,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  */
 //@Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    /* (non-Javadoc)
-     * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.springframework.security.config.annotation.web.configuration.
+     * WebSecurityConfigurerAdapter#configure(org.springframework.security.config.
+     * annotation.web.builders.HttpSecurity)
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -18,12 +22,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //            .formLogin().loginPage("/login")
 //            .and().logout().permitAll()
 //            .and()
-            .authorizeRequests()
-            .antMatchers("/user/login").permitAll()
-            .anyRequest().authenticated();
-            
-            
-        // TODO Auto-generated method stub
-//        super.configure(http);
+                .authorizeRequests().antMatchers("/user/login").permitAll().anyRequest().authenticated();
+
+        super.configure(http);
     }
 }

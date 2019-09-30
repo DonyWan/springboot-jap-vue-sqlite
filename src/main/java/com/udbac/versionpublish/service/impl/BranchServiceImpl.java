@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.querydsl.core.types.Predicate;
 import com.udbac.versionpublish.entity.Branch;
 import com.udbac.versionpublish.repository.BranchRepository;
 import com.udbac.versionpublish.service.BranchService;
@@ -31,11 +32,11 @@ public class BranchServiceImpl implements BranchService {
         ResponseData response = new ResponseData();
         // 先查询下当前省份下是否包含相同名称和dcsid
         List<Branch> branchs = new ArrayList<Branch>();
-                //branchRepository.findByNameAndDcsidAndProvince(branch);
+        // branchRepository.findByNameAndDcsidAndProvince(branch);
         if (null != branchs && branchs.size() > 0) {
             // 已存在则不添加直接提示
             response.setCode(ResponseData.FAILD);
-            response.setMessage("该渠道已经存在!");
+            response.setMessage("已经存在,请勿重复添加.");
         } else {
             // 获取当前日期
             String dateNow = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -46,7 +47,7 @@ public class BranchServiceImpl implements BranchService {
             Branch responseBranch = branchRepository.save(branch);
             if (null != responseBranch) {
                 response.setCode(ResponseData.SUCCESS);
-                response.setMessage("添加成功!");
+                response.setMessage("添加成功.");
                 response.setObject(responseBranch);
             }
         }
@@ -61,7 +62,37 @@ public class BranchServiceImpl implements BranchService {
      */
     @Override
     public ResponseData update(Branch branch) {
-        return null;
+        // 返回类型
+        ResponseData responseData = new ResponseData();
+        // 查找是否重复
+        List<Branch> branchs = branchRepository.findByNameAndDcsidAndProvince(branch);
+        if (null != branchs && branchs.size() > 0) {
+            // 存在则提示
+            responseData.setCode(ResponseData.FAILD);
+            responseData.setMessage("已经存在,请重新更改.");
+        } else {
+            // 更新操作先做查找
+            Branch branchOne = branchRepository.getOne(branch.getId());
+
+            // 当前时间
+            String dateNow = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            branchOne.setDcsid(branch.getDcsid());
+            branchOne.setName(branch.getName());
+            branchOne.setProvince(branch.getProvince());
+            branchOne.setUpdateTime(dateNow);
+
+            try {
+                Branch branchResponse = branchRepository.save(branchOne);
+                responseData.setCode(ResponseData.SUCCESS);
+                responseData.setMessage("更改成功.");
+                responseData.setObject(branchResponse);
+            } catch (Exception e) {
+                responseData.setCode(ResponseData.FAILD);
+                responseData.setMessage(e.getMessage());
+            }
+        }
+
+        return responseData;
     }
 
     /*
@@ -71,7 +102,7 @@ public class BranchServiceImpl implements BranchService {
      * springframework.data.domain.Pageable)
      */
     @Override
-    public ResponseData findPagination(Pageable page) {
+    public ResponseData findPagination(Predicate predicate, Pageable page) {
         return null;
     }
 
@@ -83,7 +114,16 @@ public class BranchServiceImpl implements BranchService {
      */
     @Override
     public ResponseData deleteById(Branch branch) {
-        return null;
+        ResponseData responseData = new ResponseData();
+        try {
+            branchRepository.deleteById(branch.getId());
+            responseData.setCode(ResponseData.SUCCESS);
+            responseData.setMessage("删除成功.");
+        } catch (Exception e) {
+            responseData.setCode(ResponseData.FAILD);
+            responseData.setMessage(e.getMessage());
+        }
+        return responseData;
     }
 
 }

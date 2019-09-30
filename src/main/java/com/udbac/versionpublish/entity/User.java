@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * 用户实体类
@@ -39,22 +40,22 @@ public class User implements Serializable {
     private String createTime;// 创建日期
     @Column(name = "update_time")
     private String updateTime;// 更新日期
+    @Transient
     private String token;// 用户token
-    @Column(name = "admin")
-    private boolean admin = false;// 是否是管理员,默认不是管理员
-    
-    
+    @Column(name = "admin",nullable = true)
+    private String admin;// 是否是管理员,默认不是管理员.0:非管理员，1:管理员
 
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
 
     public String getToken() {
         return token;
+    }
+
+    public String getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(String admin) {
+        this.admin = admin;
     }
 
     public void setToken(String token) {

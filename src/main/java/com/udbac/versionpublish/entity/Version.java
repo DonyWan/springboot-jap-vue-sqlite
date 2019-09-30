@@ -3,6 +3,7 @@ package com.udbac.versionpublish.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -28,7 +29,8 @@ public class Version {
     private String notes;// 更新说明
     @Column(name = "user")
     private String user;// 操作用户
-
+//    @Column(name = "branch_id")
+//    private String branchId;// 所属渠道
     @Column(name = "create_time")
     private String createTime;// 创建时间
     @Column(name = "update_time")
@@ -37,6 +39,17 @@ public class Version {
     private String status;// 状态
     @Column(name = "uploadDir")
     private String uploadDir;
+
+    @OneToOne()
+    private Branch branch;
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
+    }
 
     public String getVersionBranch() {
         return versionBranch;

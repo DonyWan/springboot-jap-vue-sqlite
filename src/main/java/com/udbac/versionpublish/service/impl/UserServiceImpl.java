@@ -105,6 +105,7 @@ public class UserServiceImpl implements UserService {
         oneUser.setChinesename(user.getChinesename());
         oneUser.setEmail(user.getEmail());
         // oneUser.setPassword(MD5Util.getMD5(user.getPassword()));
+        oneUser.setAdmin(user.getAdmin());
         oneUser.setPhone(user.getPhone());
         oneUser.setProvince(user.getProvince());
         user.setUpdateTime(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
