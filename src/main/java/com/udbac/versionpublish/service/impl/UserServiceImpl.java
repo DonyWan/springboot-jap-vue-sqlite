@@ -42,8 +42,8 @@ public class UserServiceImpl implements UserService {
             User userData = users.get(0);
             // 匹配用户名和密码
             if (userData.getUsername().equals(user.getUsername()) && userData.getPassword().equals(result)) {
-                // 用户名和密码正确,生成token
-                String token = JwtUtil.createJWT(user.getUsername());
+                // 用户名和密码正确,生成token,设置subject为用户id
+                String token = JwtUtil.createJWT(userData.getId());
                 userData.setToken(token);
                 response.setCode(true);
                 response.setMessage("登录成功!");

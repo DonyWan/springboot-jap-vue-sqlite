@@ -37,5 +37,11 @@ public interface BranchService {
      * @return {@link ResponseData}
      */
     ResponseData deleteById(Branch branch);
+    /**
+     * 根据用户省份查找渠道
+     * @param province
+     * @return {@link ResponseData}
+     */
+    ResponseData findByProvince(String token);
 
 }

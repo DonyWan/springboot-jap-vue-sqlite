@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,5 +61,14 @@ public class BranchController {
     @RequestMapping("/delete")
     public ResponseData delete(@RequestBody Branch branch) {
         return branchService.deleteById(branch);
+    }
+    /**
+     * 根据省份渠道
+     * @param province
+     * @return {@link ResponseData}
+     */
+    @RequestMapping("/findByProvince")
+    public ResponseData findByProvince(@RequestHeader String token) {
+        return branchService.findByProvince(token);
     }
 }

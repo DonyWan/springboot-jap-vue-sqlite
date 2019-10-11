@@ -40,7 +40,7 @@ public class VersionPublishApplicationTests {
 		v.setNotes("版本记录");
 		v.setProvince("anhui");
 		v.setUpdateTime("2019-04-25");
-		v.setUser("wang");
+//		v.setUser("wang");
 //		v.setVersionDate("2019-04-23");
 		v.setVersionNumber("1.2.3");
 		vr.save(v);

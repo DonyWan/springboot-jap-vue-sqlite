@@ -30,8 +30,8 @@ public class Version {
     private String province;// 所属省份
     @Column(name = "notes")
     private String notes;// 更新说明
-    @Column(name = "user")
-    private String user;// 操作用户
+//    @Column(name = "user")
+//    private String user;// 操作用户
 //    @Column(name = "branch_id")
 //    private String branchId;// 所属渠道
     @Column(name = "create_time")
@@ -46,6 +46,17 @@ public class Version {
     @OneToOne()
     @NotFound(action = NotFoundAction.IGNORE)
     private Branch branch;
+    @OneToOne()
+    @NotFound(action = NotFoundAction.IGNORE)
+    private User user;
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
 
     public Branch getBranch() {
         return branch;
@@ -109,14 +120,6 @@ public class Version {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
     }
 
     public String getCreateTime() {

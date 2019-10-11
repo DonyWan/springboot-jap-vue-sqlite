@@ -11,15 +11,23 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.querydsl.core.types.Predicate;
 import com.udbac.versionpublish.entity.Branch;
+import com.udbac.versionpublish.entity.QBranch;
+import com.udbac.versionpublish.entity.User;
+import com.udbac.versionpublish.enums.Admin;
 import com.udbac.versionpublish.repository.BranchRepository;
+import com.udbac.versionpublish.repository.UserRepository;
 import com.udbac.versionpublish.service.BranchService;
+import com.udbac.versionpublish.util.JwtUtil;
 import com.udbac.versionpublish.util.ResponseData;
 
 @Service
 public class BranchServiceImpl implements BranchService {
     @Autowired
     BranchRepository branchRepository;
+    @Autowired
+    UserRepository userRepository;
 
     /*
      * (non-Javadoc)
@@ -132,6 +140,41 @@ public class BranchServiceImpl implements BranchService {
             responseData.setCode(ResponseData.FAILD);
             responseData.setMessage(e.getMessage());
         }
+        return responseData;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.udbac.versionpublish.service.BranchService#findByProvince(java.lang.
+     * String)
+     */
+    @Override
+    public ResponseData findByProvince(String token) {
+        ResponseData responseData = ResponseData.getInstance();
+        // 获取当前用户id
+        String userId = JwtUtil.parseJWT(token).getSubject();
+        // 获取当前用户
+        User user = userRepository.getOne(userId);
+        // 如果是管理员查询所有
+        if (Admin.YES.getValue().equals(user.getAdmin())) {
+            List<Branch> branchs = branchRepository.findAll();
+            responseData.setCode(ResponseData.SUCCESS);
+            responseData.setObject(branchs);
+        } else {
+            Predicate predicate = QBranch.branch.province.eq(user.getProvince());
+            try {
+                Iterable<Branch> branchs = branchRepository.findAll(predicate);
+                responseData.setCode(ResponseData.SUCCESS);
+                responseData.setObject(branchs);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                responseData.setCode(ResponseData.FAILD);
+                responseData.setMessage(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
         return responseData;
     }
 

@@ -35,7 +35,7 @@ public class JwtUtil {
 		Date now = new Date(nowMillis);
 		Date expirationDate = new Date(ISSUER + nowMillis);
 		// Let's set the JWT Claims
-		String jws = Jwts.builder().setIssuedAt(now).setSubject(subject).setExpiration(expirationDate).signWith(key)
+        String jws = Jwts.builder().setIssuedAt(now).setSubject(subject).setExpiration(expirationDate).signWith(key)
 				.compact();
 
 		return jws;
