@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +28,6 @@ import com.udbac.versionpublish.entity.Version;
 import com.udbac.versionpublish.repository.UserRepository;
 import com.udbac.versionpublish.repository.VersionRepository;
 import com.udbac.versionpublish.util.JwtUtil;
-import com.udbac.versionpublish.util.Pagination;
 import com.udbac.versionpublish.util.ResponseData;
 
 /**
@@ -126,20 +125,12 @@ public class VersionController {
      */
     @ResponseBody
     @RequestMapping("/findPage")
-    public Page<Version> findPagination(@RequestBody Pagination p) {
-        ResponseData rd = new ResponseData();
-        Pageable pageable = PageRequest.of(p.getCurrentPage() - 1, p.getPageSize());
-        Page<Version> vPage = vr.findAll(pageable);
-        // 如果该页没有数据则跳转上一页
-        if (vPage.getContent().size() == 0 && vPage.getTotalPages() != 0) {
-            int currentPage = vPage.getTotalPages() - 1;
-            Pageable page = PageRequest.of(currentPage, p.getPageSize());
-            Page<Version> v = vr.findAll(page);
-            return v;
-        }
-        rd.setCode(ResponseData.SUCCESS);
-        rd.setObject(vPage);
-        return vPage;
+    public ResponseData findPagination(@PageableDefault(page = 0, size = 10, sort = { "versionDate" })Pageable page) {
+        ResponseData responseData = new ResponseData();
+        Page<Version> versionPage = vr.findAll(page);
+        responseData.setCode(ResponseData.SUCCESS);
+        responseData.setObject(versionPage);
+        return responseData;
     }
 
     @RequestMapping("/upload")

@@ -20,6 +20,11 @@ public class ResponseData {
     private boolean code;
     private String message;
     private Object object;
+    
+    // 创建实例
+    public static ResponseData getInstance() {
+        return new ResponseData();
+    }
 
     public boolean getCode() {
         return code;

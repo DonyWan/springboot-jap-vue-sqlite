@@ -6,6 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 /**
  * 版本实体类
  * 
@@ -41,6 +44,7 @@ public class Version {
     private String uploadDir;
 
     @OneToOne()
+    @NotFound(action = NotFoundAction.IGNORE)
     private Branch branch;
 
     public Branch getBranch() {

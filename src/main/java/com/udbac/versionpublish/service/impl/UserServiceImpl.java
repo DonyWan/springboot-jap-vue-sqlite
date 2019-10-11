@@ -138,7 +138,6 @@ public class UserServiceImpl implements UserService {
     public ResponseData findPagination(Pageable page) {
         ResponseData rd = new ResponseData();
         Page<User> vPage = userRepository.findAll(page);
-        rd.setObject(vPage);
         rd.setCode(ResponseData.SUCCESS);
         rd.setObject(vPage);
         return rd;

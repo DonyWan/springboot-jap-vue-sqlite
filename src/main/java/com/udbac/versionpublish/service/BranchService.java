@@ -2,7 +2,6 @@ package com.udbac.versionpublish.service;
 
 import org.springframework.data.domain.Pageable;
 
-import com.querydsl.core.types.Predicate;
 import com.udbac.versionpublish.entity.Branch;
 import com.udbac.versionpublish.util.ResponseData;
 
@@ -29,7 +28,7 @@ public interface BranchService {
      * @param page
      * @return {@link ResponseData}
      */
-    ResponseData findPagination(Predicate predicate, Pageable page);
+    ResponseData findPagination(Pageable page);
 
     /**
      * 根据ID删除渠道，这里是真删除
