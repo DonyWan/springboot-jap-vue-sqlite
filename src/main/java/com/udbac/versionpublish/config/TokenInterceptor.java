@@ -23,14 +23,12 @@ public class TokenInterceptor extends HandlerInterceptorAdapter{
     		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     		return false;
     	}
-    	System.out.println("--请求处理之前调用");
         return super.preHandle(request, response, handler);
     }
     @Override
     public void postHandle(HttpServletRequest request,
     		HttpServletResponse response, Object handler,
     		ModelAndView modelAndView) throws Exception {
-    	System.out.println("--请求处理之后调用");
     	// TODO Auto-generated method stub
     	super.postHandle(request, response, handler, modelAndView);
     }
@@ -38,7 +36,6 @@ public class TokenInterceptor extends HandlerInterceptorAdapter{
     public void afterCompletion(HttpServletRequest request,
     		HttpServletResponse response, Object handler, Exception ex)
     		throws Exception {
-    	System.out.println("--请求结束之后调用");
     	// TODO Auto-generated method stub
     	super.afterCompletion(request, response, handler, ex);
     }

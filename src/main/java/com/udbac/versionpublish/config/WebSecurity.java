@@ -7,14 +7,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebSecurity implements WebMvcConfigurer {
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		InterceptorRegistration intercept = registry
-				.addInterceptor(new TokenInterceptor());
-		intercept.addPathPatterns("/**");
-		intercept.excludePathPatterns("/user/login","/user/getToken");
-//		intercept.excludePathPatterns("/user/getToken");
-		// TODO Auto-generated method stub
-		WebMvcConfigurer.super.addInterceptors(registry);
-	}
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        InterceptorRegistration intercept = registry.addInterceptor(new TokenInterceptor());
+        intercept.addPathPatterns("/**");
+        intercept.excludePathPatterns("/user/login", "/user/getToken");
+        intercept.excludePathPatterns("/provinces/**");
+        WebMvcConfigurer.super.addInterceptors(registry);
+    }
 }

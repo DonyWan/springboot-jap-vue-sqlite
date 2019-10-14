@@ -1,5 +1,7 @@
 package com.udbac.versionpublish;
 
+import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.ResourceUtils;
 
 import com.querydsl.core.types.Predicate;
 import com.udbac.versionpublish.entity.Branch;
@@ -82,11 +85,21 @@ public class VersionPublishApplicationTests {
             System.out.println(branch2.getName());
         }
 	}
-	@Test
+//	@Test
 	public void getVersion() {
 	    Version version = vr.findById("b236b3d3-3231-4569-a634-1fcd8ebef1af").get();
 	    
 	    System.out.println(version.getBranch().getName());
+	}
+	@Test
+	public void getResources() {
+	    try {
+            URL path = ResourceUtils.getURL(ResourceUtils.CLASSPATH_URL_PREFIX);
+            System.out.println(path.getPath()+":path");
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
 	public static void main(String[] args) {
 		

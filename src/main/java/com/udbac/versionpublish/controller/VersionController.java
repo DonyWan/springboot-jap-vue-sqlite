@@ -1,15 +1,10 @@
 package com.udbac.versionpublish.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,7 +67,7 @@ public class VersionController {
     }
 
     /**
-     * 
+     * 分页查找
      * @param page
      * @return {@link ResponseData}
      */
@@ -82,30 +77,18 @@ public class VersionController {
         ResponseData responseData = versionService.findPagination(page);
         return responseData;
     }
-
-    @RequestMapping("/upload")
+    
+    /**
+     * 上传文件
+     * @param file
+     * @param version
+     * @return
+     */
     @ResponseBody
-    public String handleFileUpload(@RequestPart("file") MultipartFile file, @RequestBody Version v) {
-        if (!file.isEmpty()) {
-            try {
-                BufferedOutputStream out = new BufferedOutputStream(
-                        new FileOutputStream(new File(file.getOriginalFilename())));
-                System.out.println(file.getName());
-                out.write(file.getBytes());
-                out.flush();
-                out.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                return "上传失败," + e.getMessage();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "上传失败," + e.getMessage();
-            }
-
-            return "上传成功";
-
-        } else {
-            return "上传失败，因为文件是空的.";
-        }
+    @PostMapping("/upload")
+    public ResponseData handleFileUpload(@RequestPart MultipartFile file, String version) {
+        ResponseData responseData = versionService.uploadFile(file, version);
+        return responseData;
     }
+
 }

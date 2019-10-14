@@ -1,6 +1,7 @@
 package com.udbac.versionpublish.service;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.udbac.versionpublish.entity.Version;
 import com.udbac.versionpublish.util.ResponseData;
@@ -14,4 +15,5 @@ public interface VersionService {
     public ResponseData deleteVersion(Version version,String token);
     public ResponseData updateVersion(Version version,String token);
     public ResponseData findPagination(Pageable page);
+    ResponseData uploadFile(MultipartFile file, String version);
 }

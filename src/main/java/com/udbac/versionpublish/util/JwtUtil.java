@@ -60,4 +60,7 @@ public class JwtUtil {
 	public static boolean isTokenExpired(Date expiration) {
         return expiration.before(new Date());
     }
+	public static void main(String[] args) {
+        System.out.println(createJWT("dun"));
+    }
 }

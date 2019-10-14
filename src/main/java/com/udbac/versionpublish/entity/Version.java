@@ -22,8 +22,8 @@ public class Version {
     private String id;
     @Column(name = "version_number")
     private String versionNumber;// 版本号
-    @Column(name = "version_branch")
-    private String versionBranch;// 版本分类
+//    @Column(name = "version_branch")
+//    private String versionBranch;// 版本分类
     @Column(name = "version_date")
     private String versionDate;// 版本日期
     @Column(name = "province")
@@ -64,14 +64,6 @@ public class Version {
 
     public void setBranch(Branch branch) {
         this.branch = branch;
-    }
-
-    public String getVersionBranch() {
-        return versionBranch;
-    }
-
-    public void setVersionBranch(String versionBranch) {
-        this.versionBranch = versionBranch;
     }
 
     public String getStatus() {

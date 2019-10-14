@@ -1,7 +1,5 @@
 package com.udbac.versionpublish.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,11 +14,7 @@ import javax.persistence.Transient;
  */
 @Table(name = "user")
 @Entity
-public class User implements Serializable {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+public class User {
     @Id
     @Column(name = "id")
     private String id;
@@ -42,9 +36,8 @@ public class User implements Serializable {
     private String updateTime;// 更新日期
     @Transient
     private String token;// 用户token
-    @Column(name = "admin",nullable = true)
+    @Column(name = "admin", nullable = true)
     private String admin;// 是否是管理员,默认不是管理员.0:非管理员，1:管理员
-
 
     public String getToken() {
         return token;
