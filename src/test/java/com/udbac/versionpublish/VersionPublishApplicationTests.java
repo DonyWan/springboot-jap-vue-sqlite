@@ -41,7 +41,6 @@ public class VersionPublishApplicationTests {
 		v.setId(UUID.randomUUID().toString());
 		v.setCreateTime("2019-04-23");
 		v.setNotes("版本记录");
-		v.setProvince("anhui");
 		v.setUpdateTime("2019-04-25");
 //		v.setUser("wang");
 //		v.setVersionDate("2019-04-23");

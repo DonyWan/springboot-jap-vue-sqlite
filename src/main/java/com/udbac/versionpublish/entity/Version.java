@@ -26,8 +26,8 @@ public class Version {
 //    private String versionBranch;// 版本分类
     @Column(name = "version_date")
     private String versionDate;// 版本日期
-    @Column(name = "province")
-    private String province;// 所属省份
+//    @Column(name = "province")
+//    private String province;// 所属省份
     @Column(name = "notes")
     private String notes;// 更新说明
 //    @Column(name = "user")
@@ -96,14 +96,6 @@ public class Version {
 
     public void setVersionDate(String versionDate) {
         this.versionDate = versionDate;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
     }
 
     public String getNotes() {

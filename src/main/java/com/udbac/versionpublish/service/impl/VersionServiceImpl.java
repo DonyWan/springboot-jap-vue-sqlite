@@ -78,7 +78,6 @@ public class VersionServiceImpl implements VersionService {
         versionOne.setUpdateTime(LocalDateTime.now().toString());
         versionOne.setVersionNumber(version.getVersionNumber());
         versionOne.setVersionDate(version.getVersionDate());
-        versionOne.setProvince(version.getProvince());
         versionOne.setUser(user);
         versionOne.setBranch(version.getBranch());
         versionRepository.save(versionOne);
