@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
         oneUser.setAdmin(user.getAdmin());
         oneUser.setPhone(user.getPhone());
         oneUser.setProvince(user.getProvince());
-        user.setUpdateTime(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        oneUser.setUpdateTime(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         // 判断是否更改了登录名
         if (null != oneUser.getUsername() && !oneUser.getUsername().equals(user.getUsername())) {
             // 更改用户名查询数据库中是否存在
